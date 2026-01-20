@@ -1,7 +1,5 @@
-# Breast-Cancer-Classifier
 
-
-# Breast Cancer Classifier (BUSI) — Benign vs Malignant (Deep Learning)
+# **Breast Cancer Classifier**  — Benign vs Malignant (Deep Learning)
 
 Breast ultrasound image classifier trained on the **BUSI** dataset (benign vs malignant).  
 Pipeline includes: dataset preparation (mask removal + split), transfer learning, fine-tuning, threshold tuning, and deployment via FastAPI + a simple web UI.
@@ -10,15 +8,20 @@ Pipeline includes: dataset preparation (mask removal + split), transfer learning
 
 ***
 ---
-<img src="ss.png" alt="Breast Cancer Classifier" width="300" />
+
+![Breast Cancer Classifier](ss.png)
+
 ---
+
 ## Project structure
 
 ```
-breast-cancer-api/
+Breast-Cancer-Classifier/
   app.py
   models/
     best_model_finetuned.keras
+  notebooks/
+    Breast Cancer Classifier Notebook.ipynb
   templates/
     index.html
   requirements.txt
