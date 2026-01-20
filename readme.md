@@ -9,7 +9,9 @@ Pipeline includes: dataset preparation (mask removal + split), transfer learning
 > Disclaimer: Educational project only. Not medical advice.
 
 ***
-![Breast Cancer Classifier](Breast Cancer Classifier.png)
+---
+<img src="ss.png" alt="Breast Cancer Classifier" width="300" />
+---
 ## Project structure
 
 ```
