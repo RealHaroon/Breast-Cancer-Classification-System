@@ -1,7 +1,7 @@
 
-# Breast Ultrasound Classifier (Deep Learning)
+# Breast Cancer Classification System (Deep Learning)
 
-Breast ultrasound image classifier trained on the **BUSI** dataset to predict **normal / benign / malignant**, deployed as a FastAPI web app with a simple HTML/CSS/JS UI.
+Breast Cancer Classification System trained on the **BUSI** dataset to predict **normal / benign / malignant**, deployed as a FastAPI web app with a simple HTML/CSS/JS UI.
 
 > Disclaimer: Educational project only. Not medical advice.
 
