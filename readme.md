@@ -177,4 +177,13 @@ curl -X POST "http://127.0.0.1:8000/predict" -F "file=@sample.png"
 ## Author
 Created by **M Haroon Abbas**  
 GitHub: https://github.com/RealHaroon
+---
+
+## **Final note (model choice & deployment policy)**
+
+We trained and tested multiple variants (baseline head-only vs fine-tuned + recall-focused thresholding). We ultimately kept the baseline model as the “final” model because it gave the best overall balance on the test set—higher accuracy and better weighted performance—while the high-recall setup increased malignant recall but caused a clear drop in overall accuracy due to more benign images being flagged as malignant (more false positives). In a general 3-class classification demo, that trade-off makes the model look worse to most users because the app appears to “overcall” malignant too often.
+
+At the same time, we didn’t ignore the safety concern: in medical screening, missing malignant (false negatives) can be more costly than extra false alarms. That’s why the app includes a **high-sensitivity label** and an optional **forced malignant** rule: if the model’s malignant probability crosses a chosen threshold, we override the argmax decision and label the case as malignant (or at least mark it for review). This doesn’t change the model weights—it’s a deployment-time decision policy—so you can keep the baseline model for overall performance while still offering a “safer mode” when your priority is catching more malignant-like cases.
 ```
+```
+---
