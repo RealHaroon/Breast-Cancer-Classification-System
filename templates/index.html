@@ -1,49 +1,57 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Breast Cancer Detector</title>
 
   <style>
-    :root{
+    :root {
       --bg: #0b1220;
-      --card: rgba(255,255,255,0.06);
-      --card2: rgba(255,255,255,0.09);
+      --card: rgba(255, 255, 255, 0.06);
+      --card2: rgba(255, 255, 255, 0.09);
       --text: #e8eefc;
-      --muted: rgba(232,238,252,0.7);
+      --muted: rgba(232, 238, 252, 0.7);
       --accent: #6ee7ff;
       --good: #22c55e;
       --bad: #ef4444;
       --warn: #f59e0b;
-      --border: rgba(255,255,255,0.12);
+      --border: rgba(255, 255, 255, 0.12);
     }
 
-    * { box-sizing: border-box; }
-    body{
-      margin:0;
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
-      background: radial-gradient(1000px 600px at 10% 10%, rgba(110,231,255,0.18), transparent),
-                  radial-gradient(900px 600px at 90% 30%, rgba(34,197,94,0.12), transparent),
-                  var(--bg);
+      background: radial-gradient(1000px 600px at 10% 10%, rgba(110, 231, 255, 0.18), transparent),
+        radial-gradient(900px 600px at 90% 30%, rgba(34, 197, 94, 0.12), transparent),
+        var(--bg);
       color: var(--text);
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 24px;
     }
 
-.container{
-  width: min(720px, 100%);
-  display: grid;
-  place-items: center;   /* centers the card */
-}
-    @media (max-width: 860px){
-      .container{ grid-template-columns: 1fr; }
+    .container {
+      width: min(720px, 100%);
+      display: grid;
+      place-items: center;
+      /* centers the card */
     }
 
-    .card{
+    @media (max-width: 860px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 16px;
@@ -51,36 +59,42 @@
       backdrop-filter: blur(10px);
     }
 
-    h1{
+    h1 {
       margin: 0 0 6px 0;
       font-size: 22px;
       letter-spacing: 0.2px;
     }
-    p{ margin: 0; color: var(--muted); line-height: 1.5; }
 
-    .dropzone{
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .dropzone {
       margin-top: 14px;
       border: 1.5px dashed var(--border);
       border-radius: 14px;
       padding: 18px;
-      background: rgba(255,255,255,0.03);
+      background: rgba(255, 255, 255, 0.03);
       transition: 0.15s ease;
     }
-    .dropzone.dragover{
+
+    .dropzone.dragover {
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(110,231,255,0.18);
+      box-shadow: 0 0 0 3px rgba(110, 231, 255, 0.18);
     }
 
-    .row{
-      display:flex;
+    .row {
+      display: flex;
       gap: 10px;
       flex-wrap: wrap;
       margin-top: 12px;
       align-items: center;
     }
 
-    input[type="file"]{
-      display:block;
+    input[type="file"] {
+      display: block;
       width: 100%;
       background: var(--card2);
       border: 1px solid var(--border);
@@ -89,7 +103,7 @@
       color: var(--text);
     }
 
-    button{
+    button {
       border: 0;
       background: linear-gradient(90deg, var(--accent), #a78bfa);
       color: #001018;
@@ -98,81 +112,89 @@
       border-radius: 12px;
       cursor: pointer;
     }
-    button:disabled{
+
+    button:disabled {
       opacity: 0.6;
       cursor: not-allowed;
     }
 
-    .secondary{
+    .secondary {
       background: transparent;
       color: var(--text);
       border: 1px solid var(--border);
       font-weight: 600;
     }
 
-    .preview{
+    .preview {
       margin-top: 12px;
-      display:flex;
+      display: flex;
       gap: 12px;
-      align-items:flex-start;
+      align-items: flex-start;
     }
 
-    .preview img{
+    .preview img {
       width: 140px;
       height: 140px;
       object-fit: cover;
       border-radius: 14px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,0.04);
+      background: rgba(255, 255, 255, 0.04);
     }
 
-    .kv{
-      display:grid;
+    .kv {
+      display: grid;
       grid-template-columns: 130px 1fr;
       gap: 8px;
       width: 100%;
     }
 
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       padding: 6px 10px;
       border-radius: 999px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,0.04);
+      background: rgba(255, 255, 255, 0.04);
       font-weight: 700;
       width: fit-content;
       margin-top: 10px;
     }
 
-    .badge.good{ border-color: rgba(34,197,94,0.6); color: #b9f6ca; }
-    .badge.bad{ border-color: rgba(239,68,68,0.6); color: #fecaca; }
-
-    .mono{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      color: rgba(232,238,252,0.9);
+    .badge.good {
+      border-color: rgba(34, 197, 94, 0.6);
+      color: #b9f6ca;
     }
 
-    .status{
+    .badge.bad {
+      border-color: rgba(239, 68, 68, 0.6);
+      color: #fecaca;
+    }
+
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      color: rgba(232, 238, 252, 0.9);
+    }
+
+    .status {
       margin-top: 10px;
       color: var(--muted);
     }
 
-    .error{
+    .error {
       margin-top: 10px;
       color: #fecaca;
-      background: rgba(239,68,68,0.12);
-      border: 1px solid rgba(239,68,68,0.35);
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
       padding: 10px 12px;
       border-radius: 12px;
-      display:none;
+      display: none;
     }
 
-    .hint{
+    .hint {
       margin-top: 10px;
       font-size: 12px;
-      color: rgba(232,238,252,0.6);
+      color: rgba(232, 238, 252, 0.6);
     }
   </style>
 </head>
@@ -181,7 +203,7 @@
   <div class="container">
     <div class="card">
       <h1>Breast Cancer Detector</h1>
-      <p>Upload a breast ultrasound image and get a prediction instantly (benign vs malignant).</p>
+      <p>Upload a breast ultrasound image and get a prediction instantly (normal vs benign vs malignant).</p>
       <p><b> Created By: M Haroon Abbas </b></p>
 
       <div id="dropzone" class="dropzone">
@@ -196,10 +218,14 @@
         <div class="preview">
           <img id="previewImg" alt="Preview" />
           <div class="kv">
-            <div class="muted">File</div><div id="fileName" class="mono">—</div>
-            <div class="muted">Probability</div><div id="prob" class="mono">—</div>
-            <div class="muted">Threshold</div><div id="thr" class="mono">—</div>
-            <div class="muted">Prediction</div><div id="pred" class="mono">—</div>
+            <div class="muted">File</div>
+            <div id="fileName" class="mono">—</div>
+            <div class="muted">Probability</div>
+            <div id="prob" class="mono">—</div>
+            <div class="muted">Threshold</div>
+            <div id="thr" class="mono">—</div>
+            <div class="muted">Prediction</div>
+            <div id="pred" class="mono">—</div>
           </div>
         </div>
 
@@ -208,7 +234,8 @@
         <div id="errorBox" class="error"></div>
 
         <div class="hint">
-          Disclaimer: Educational project only. Not medical advice, Created By M Haroon Abbas (https://github.com/RealHaroon)
+          Disclaimer: Educational project only. Not medical advice, Created By M Haroon Abbas
+          (https://github.com/RealHaroon)
         </div>
       </div>
     </div>
@@ -216,136 +243,146 @@
 
   </div>
 
-  <script>
-    const form = document.getElementById("uploadForm");
-    const fileInput = document.getElementById("fileInput");
-    const dropzone = document.getElementById("dropzone");
+<script>
+  const form = document.getElementById("uploadForm");
+  const fileInput = document.getElementById("fileInput");
+  const dropzone = document.getElementById("dropzone");
 
-    const predictBtn = document.getElementById("predictBtn");
-    const clearBtn = document.getElementById("clearBtn");
+  const predictBtn = document.getElementById("predictBtn");
+  const clearBtn = document.getElementById("clearBtn");
 
-    const previewImg = document.getElementById("previewImg");
-    const fileNameEl = document.getElementById("fileName");
-    const probEl = document.getElementById("prob");
-    const thrEl = document.getElementById("thr");
-    const predEl = document.getElementById("pred");
-    const statusEl = document.getElementById("status");
-    const errorBox = document.getElementById("errorBox");
-    const badge = document.getElementById("badge");
+  const previewImg = document.getElementById("previewImg");
+  const fileNameEl = document.getElementById("fileName");
+  const probEl = document.getElementById("prob");
+  const thrEl = document.getElementById("thr");
+  const predEl = document.getElementById("pred");
+  const statusEl = document.getElementById("status");
+  const errorBox = document.getElementById("errorBox");
+  const badge = document.getElementById("badge");
 
-    function resetUI(){
-      previewImg.src = "";
-      fileNameEl.textContent = "—";
-      probEl.textContent = "—";
-      thrEl.textContent = "—";
-      predEl.textContent = "—";
-      statusEl.textContent = "Ready.";
-      errorBox.style.display = "none";
-      errorBox.textContent = "";
-      badge.style.display = "none";
-      badge.className = "badge";
-      badge.textContent = "";
-      form.reset();
-    }
+  function resetUI() {
+    previewImg.src = "";
+    fileNameEl.textContent = "—";
+    probEl.textContent = "—";
+    thrEl.textContent = "—";
+    predEl.textContent = "—";
+    statusEl.textContent = "Ready.";
+    errorBox.style.display = "none";
+    errorBox.textContent = "";
+    badge.style.display = "none";
+    badge.className = "badge";
+    badge.textContent = "";
+    form.reset();
+  }
 
-    clearBtn.addEventListener("click", resetUI);
+  clearBtn.addEventListener("click", resetUI);
 
-    function showError(msg){
-      errorBox.textContent = msg;
-      errorBox.style.display = "block";
-    }
+  function showError(msg) {
+    errorBox.textContent = msg;
+    errorBox.style.display = "block";
+  }
 
-    function setLoading(isLoading){
-      predictBtn.disabled = isLoading;
-      statusEl.textContent = isLoading ? "Predicting..." : "Ready.";
-    }
+  function setLoading(isLoading) {
+    predictBtn.disabled = isLoading;
+    statusEl.textContent = isLoading ? "Predicting..." : "Ready.";
+  }
 
-    fileInput.addEventListener("change", () => {
-      errorBox.style.display = "none";
-      const file = fileInput.files?.[0];
-      if(!file) return;
+  fileInput.addEventListener("change", () => {
+    errorBox.style.display = "none";
+    const file = fileInput.files?.[0];
+    if (!file) return;
 
-      fileNameEl.textContent = file.name;
+    fileNameEl.textContent = file.name;
+    previewImg.src = URL.createObjectURL(file);
+  });
 
-      const url = URL.createObjectURL(file);
-      previewImg.src = url;
-    });
-
-    // Drag & drop (optional)
-    ["dragenter","dragover"].forEach(evt => {
-      dropzone.addEventListener(evt, (e) => {
-        e.preventDefault();
-        dropzone.classList.add("dragover");
-      });
-    });
-
-    ["dragleave","drop"].forEach(evt => {
-      dropzone.addEventListener(evt, (e) => {
-        e.preventDefault();
-        dropzone.classList.remove("dragover");
-      });
-    });
-
-    dropzone.addEventListener("drop", (e) => {
-      const file = e.dataTransfer.files?.[0];
-      if(file){
-        fileInput.files = e.dataTransfer.files;
-        fileInput.dispatchEvent(new Event("change"));
-      }
-    });
-
-    // Submit via fetch() so it doesn't navigate away
-    form.addEventListener("submit", async (e) => {
+  ["dragenter", "dragover"].forEach(evt => {
+    dropzone.addEventListener(evt, (e) => {
       e.preventDefault();
-
-      const file = fileInput.files?.[0];
-      if(!file){
-        showError("Please choose an image first.");
-        return;
-      }
-
-      setLoading(true);
-      try{
-        const formData = new FormData();
-        formData.append("file", file);
-
-        const res = await fetch("/predict", {
-          method: "POST",
-          body: formData
-        });
-
-        if(!res.ok){
-          const txt = await res.text();
-          throw new Error(txt || ("Request failed with status " + res.status));
-        }
-
-        const data = await res.json();
-
-        const p = Number(data.prob_malignant);
-        const t = Number(data.threshold);
-        const label = String(data.prediction);
-
-        probEl.textContent = isFinite(p) ? p.toFixed(4) : String(data.prob_malignant);
-        thrEl.textContent = isFinite(t) ? t.toFixed(2) : String(data.threshold);
-        predEl.textContent = label;
-
-        badge.style.display = "inline-flex";
-        if(label.toLowerCase().includes("malig")){
-          badge.className = "badge bad";
-          badge.textContent = "Prediction: Malignant";
-        }else{
-          badge.className = "badge good";
-          badge.textContent = "Prediction: Benign";
-        }
-
-        statusEl.textContent = "Done.";
-      }catch(err){
-        showError(err.message || String(err));
-        statusEl.textContent = "Error.";
-      }finally{
-        setLoading(false);
-      }
+      dropzone.classList.add("dragover");
     });
-  </script>
+  });
+
+  ["dragleave", "drop"].forEach(evt => {
+    dropzone.addEventListener(evt, (e) => {
+      e.preventDefault();
+      dropzone.classList.remove("dragover");
+    });
+  });
+
+  dropzone.addEventListener("drop", (e) => {
+    const file = e.dataTransfer.files?.[0];
+    if (file) {
+      fileInput.files = e.dataTransfer.files;
+      fileInput.dispatchEvent(new Event("change"));
+    }
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const file = fileInput.files?.[0];
+    if (!file) {
+      showError("Please choose an image first.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/predict", { method: "POST", body: formData });
+      if (!res.ok) {
+        const txt = await res.text();
+        throw new Error(txt || ("Request failed with status " + res.status));
+      }
+
+      const data = await res.json();
+      console.log("response:", data);
+
+      const label = String(data.prediction || "—");
+      const forced = data.forced_malignant === true;
+      const uncertain = data.uncertain === true;
+
+      const pMal = Number(data.prob_malignant);
+      const thr = Number(data.threshold);
+
+      fileNameEl.textContent = data.filename || file.name;
+      probEl.textContent = isFinite(pMal) ? pMal.toFixed(4) : "—";
+      thrEl.textContent = isFinite(thr) ? thr.toFixed(2) : "—";
+      predEl.textContent = label;
+
+      badge.style.display = "inline-flex";
+
+      if (forced) {
+        badge.className = "badge bad";
+        badge.textContent = "Forced: Malignant (high sensitivity)";
+      } else if (label.toLowerCase().includes("malig")) {
+        badge.className = "badge bad";
+        badge.textContent = "Prediction: Malignant";
+      } else if (label.toLowerCase().includes("benign")) {
+        badge.className = "badge good";
+        badge.textContent = "Prediction: Benign";
+      } else {
+        badge.className = "badge good";
+        badge.textContent = "Prediction: Normal";
+      }
+
+      // Optional: show uncertainty in status line (doesn't override badge)
+      statusEl.textContent = uncertain ? "Done (uncertain)." : "Done.";
+    } catch (err) {
+      showError(err.message || String(err));
+      statusEl.textContent = "Error.";
+      badge.style.display = "none";
+    } finally {
+      setLoading(false);
+    }
+  });
+</script>
+
+
 </body>
+
 </html>
