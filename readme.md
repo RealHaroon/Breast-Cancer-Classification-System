@@ -13,7 +13,6 @@ Breast Cancer Classification System trained on the **BUSI** dataset to predict *
 
 ## Project structure
 ```md
-```text
 Breast-Cancer-Classifier/
   app.py
   models/
@@ -175,8 +174,8 @@ curl -X POST "http://127.0.0.1:8000/predict" -F "file=@sample.png"
 ---
 
 ## Author
-Created by **M Haroon Abbas**  
-GitHub: https://github.com/RealHaroon
+#### Created by **M Haroon Abbas**  
+#### GitHub: https://github.com/RealHaroon
 ---
 
 ## **Final note (model choice & deployment policy)**
